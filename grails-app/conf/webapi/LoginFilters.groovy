@@ -6,7 +6,7 @@ class LoginFilters {
     all(controller: 'home', action: '*') {
       before = {
         if (actionName != "index" && actionName != "login") {
-          if (session.getAttribute("accessToken") != null) {
+          if (session.getAttribute("loginToken") != null) {
             redirect(controller: "home", action: "index")
             return false
           }

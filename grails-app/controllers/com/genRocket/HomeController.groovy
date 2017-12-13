@@ -7,7 +7,7 @@ import groovyx.net.http.Method
 class HomeController {
 
   def index() {
-    if (session.accessToken) {
+    if (session.loginToken) {
       redirect(action: "dashboard")
     }
   }
@@ -15,10 +15,10 @@ class HomeController {
   def login(String username, String password) {
     String loginURL = AppConstant.API_URL + "api/login"
     Map resp = makeRequestAndRetrieveResponse(loginURL, [username: username, password: password], false)
-    String accessToken = resp.access_token
-    if (accessToken) {
-      println "Setting access token: ${accessToken}"
-      saveToken(accessToken)
+    String loginToken = resp.access_token
+    if (loginToken) {
+      println "Setting access token: ${loginToken}"
+      saveToken(loginToken)
     } else {
       render(view: "index", model: [errorMessage: "Invalid UserName and password combination"])
       return
@@ -41,7 +41,7 @@ class HomeController {
     hTTPBuilder.request(Method.POST, ContentType.JSON) {
       body = requestMap
 
-      if (session.accessToken && setHeader) {
+      if (session.loginToken && setHeader) {
         headers = ["X-Auth-Token": selectedToken()]
       }
 
@@ -57,11 +57,11 @@ class HomeController {
   }
 
   private def selectedToken() {
-    getSession().getAttribute("accessToken")
+    getSession().getAttribute("loginToken")
   }
 
   def saveToken(String accessToken) {
-    getSession().setAttribute("accessToken", accessToken)
+    getSession().setAttribute("loginToken", accessToken)
   }
 
 }
