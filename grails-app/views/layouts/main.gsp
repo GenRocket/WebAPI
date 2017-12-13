@@ -43,6 +43,9 @@
 </head>
 
 <body>
+<div class="color-line"></div>
+
+<div class="col-lg-12 text-right"><g:link controller="home" action="logout">Logout</g:link></div>
 <g:layoutBody/>
 </body>
 </html>

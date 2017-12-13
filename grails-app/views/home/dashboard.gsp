@@ -5,9 +5,6 @@
 </head>
 
 <body class="blank">
-
-<div class="color-line"></div>
-
 <div class="container">
 
   <div class="col-lg-12">

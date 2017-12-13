@@ -5,10 +5,6 @@
 </head>
 
 <body class="blank">
-
-<div class="color-line"></div>
-
-
 <div class="login-container">
   <div class="row">
     <div class="col-md-12">

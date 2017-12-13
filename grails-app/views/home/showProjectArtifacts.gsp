@@ -5,9 +5,6 @@
 </head>
 
 <body class="blank">
-
-<div class="color-line"></div>
-
 <ul class="breadcrumb">
   <li><g:link controller="home" action="dashboard">Project Dashboard</g:link><span class="divider"></span></li>
   <li><g:link controller="home" action="listProjectVersions" params="[id: projectName]">Project Version</g:link> <span

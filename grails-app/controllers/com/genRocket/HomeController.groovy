@@ -12,6 +12,11 @@ class HomeController {
     }
   }
 
+  def logout() {
+    saveToken(null)
+    redirect(action: "index")
+  }
+
   def login(String username, String password) {
     String loginURL = AppConstant.API_URL + "api/login"
     Map resp = makeRequestAndRetrieveResponse(loginURL, [username: username, password: password], false)
