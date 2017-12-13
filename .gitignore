@@ -14,3 +14,4 @@ test/data/
 web/*.sql
 web/*.db
 web/*.log
+.idea/workspace.xml
