@@ -42,6 +42,31 @@ class HomeController {
     render(view: "editProject")
   }
 
+  def createProjectVersion(String id) {
+    render(view: "editProjectVersion", model: [projectName: id])
+  }
+
+  def editProjectVersion(String id) {
+    String listProject = AppConstant.API_URL + "rest/show/projectVersion"
+    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id,
+                                                            versionNumber : params.versionNumber])
+    resp + [projectName: id]
+  }
+
+  def saveProjectVersion() {
+    String oldVersionNumber = params.oldVersionNumber
+    String listProject = AppConstant.API_URL + "rest/create/projectVersion"
+    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId  : AppConstant.ORG_ID, projectName: params.projectName,
+                                                            oldVersionNumber: oldVersionNumber,
+                                                            versionNumber   : params.versionNumber, description: params.description])
+    if (resp.success) {
+      redirect(action: "listProjectVersions", params: [id: params.projectName])
+    } else {
+      render(view: "editProjectVersion", model: [errors: resp.errors, projectVersion: [versionNumber: oldVersionNumber,
+                                                                                       description  : params.description]])
+    }
+  }
+
   def lockProject(String id) {
     String listProject = AppConstant.API_URL + "rest/lock/project"
     Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
@@ -84,7 +109,7 @@ class HomeController {
     if (resp.success) {
       redirect(action: "dashboard")
     } else {
-      render(view: "editProject", model: [errors: resp.errors])
+      render(view: "editProject", model: [errors: resp.errors, project: [name: oldName, description: params.description]])
     }
   }
 
