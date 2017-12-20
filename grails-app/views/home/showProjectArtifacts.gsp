@@ -20,13 +20,11 @@
   <div class="col-lg-4">
     <div class="hpanel">
       <div class="panel-heading">
-        Domains
+        <h4 class="font-bold">Domains</h4>
       </div>
 
       <div class="panel-body">
         <div class="table-responsive">
-          <h4 class="font-bold">Domains</h4>
-
           <table cellpadding="1" cellspacing="1" class="table table-condensed table-bordered">
             <thead>
             <tr>
@@ -38,12 +36,16 @@
             <tbody>
             <g:each in="${domains.domains}" var="domain">
               <tr>
-                <td>${domain.name}
+                <td><g:link controller="domain" action="dashboard" id="${domain.externalId}">${domain.name}</g:link></td>
                 <td>${domain.description}
                 </td>
                 <td class="text-center"><g:link controller="home" action="editDomain"
                                                 params="[id: projectName, versionNumber: versionNumber, externalId: domain.externalId]"><i
-                      class="pe-7s-pen"></i></g:link></td>
+                      class="pe-7s-pen"></i></g:link>
+                  <g:link controller="home" action="deleteDomain"
+                          params="[id: projectName, versionNumber: versionNumber, domainId: domain.externalId]"><i
+                      class="pe-7s-trash"></i></g:link>
+                </td>
               </tr>
             </g:each>
             </tbody>
@@ -62,13 +64,11 @@
   <div class="col-lg-4">
     <div class="hpanel">
       <div class="panel-heading">
-        Domains
+        <h4 class="font-bold">Scenarios</h4>
       </div>
 
       <div class="panel-body">
         <div class="table-responsive">
-          <h4 class="font-bold">Scenarios</h4>
-
           <table cellpadding="1" cellspacing="1" class="table table-condensed table-bordered">
             <thead>
             <tr>
@@ -99,13 +99,11 @@
   <div class="col-lg-4">
     <div class="hpanel">
       <div class="panel-heading">
-        Domains
+        <h4 class="font-bold">Scenario Chain</h4>
       </div>
 
       <div class="panel-body">
         <div class="table-responsive">
-          <h4 class="font-bold">Scenario Chain</h4>
-
           <table cellpadding="1" cellspacing="1" class="table table-condensed table-bordered">
             <thead>
             <tr>

@@ -2271,9 +2271,8 @@ body.fullscreen-panel-mode {
 }
 #side-menu li a {
   color: #6a6c6f;
-  text-transform: uppercase;
   font-weight: 700;
-  padding: 15px 20px;
+  padding: 10px 20px;
 }
 #side-menu li {
   border-bottom: 1px solid #e4e5e7;

@@ -45,7 +45,7 @@
               <td>${projectVersion.description}</td>
               <td class="text-center">
                 <g:link controller="home" action="showProjectArtifacts"
-                        params="[name: project.name, versionNumber: projectVersion.versionNumber]"><i
+                        params="[id: project.name, versionNumber: projectVersion.versionNumber]"><i
                     class="pe-7s-menu"></i></g:link>
                 <g:link controller="home" action="editProjectVersion"
                         params="[id: project.name, versionNumber: projectVersion.versionNumber]"><i
