@@ -31,15 +31,19 @@
             <thead>
             <tr>
               <th>Name</th>
-              <th>&nbsp;</th>
+              <th>Description</th>
+              <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
             <g:each in="${domains.domains}" var="domain">
               <tr>
                 <td>${domain.name}
+                <td>${domain.description}
                 </td>
-                <td></td>
+                <td class="text-center"><g:link controller="home" action="editDomain"
+                                                params="[id: projectName, versionNumber: versionNumber, externalId: domain.externalId]"><i
+                      class="pe-7s-pen"></i></g:link></td>
               </tr>
             </g:each>
             </tbody>
@@ -48,7 +52,8 @@
       </div>
 
       <div class="panel-footer">
-        <g:link controller="home" action="createDomain" class="btn btn-success">New Domain</g:link>
+        <g:link controller="home" action="createDomain" params="[id: projectName, versionNumber: versionNumber]"
+                class="btn btn-sm btn-success">New Domain</g:link>
       </div>
     </div>
   </div>
@@ -85,7 +90,8 @@
       </div>
 
       <div class="panel-footer">
-        <g:link controller="home" action="createScenario" class="btn btn-success">New Scenario</g:link>
+        <g:link controller="home" action="createScenario" params="[id: projectName, versionNumber: versionNumber]"
+                class="btn btn-sm btn-success">New Scenario</g:link>
       </div>
     </div>
   </div>
@@ -121,7 +127,8 @@
       </div>
 
       <div class="panel-footer">
-        <g:link controller="home" action="createChain" class="btn btn-success">New Chain</g:link>
+        <g:link controller="home" action="createChain" params="[id: projectName, versionNumber: versionNumber]"
+                class="btn btn-sm btn-success">New Chain</g:link>
       </div>
     </div>
   </div>

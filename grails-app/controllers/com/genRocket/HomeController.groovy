@@ -62,8 +62,35 @@ class HomeController {
     if (resp.success) {
       redirect(action: "listProjectVersions", params: [id: params.projectName])
     } else {
-      render(view: "editProjectVersion", model: [errors: resp.errors, projectVersion: [versionNumber: oldVersionNumber,
-                                                                                       description  : params.description]])
+      render(view: "editProjectVersion", model: [errors        : resp.errors, projectName: params.projectName,
+                                                 projectVersion: [versionNumber: oldVersionNumber,
+                                                                  description  : params.description]])
+    }
+  }
+
+  def createDomain(String id, String versionNumber) {
+    render(view: "editDomain", model: [projectName: id, versionNumber: versionNumber])
+  }
+
+  def editDomain(String id, String versionNumber, String externalId) {
+    String listProject = AppConstant.API_URL + "rest/show/domain"
+    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id, versionNumber: versionNumber,
+                                                            domainId: externalId])
+    resp + [projectName: id, versionNumber: versionNumber]
+  }
+
+  def saveDomain() {
+    String listProject = AppConstant.API_URL + "rest/create/domain"
+    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: params.projectName,
+                                                            versionNumber : params.versionNumber, name: params.name, externalId: params.externalId,
+                                                            description   : params.description])
+    if (resp.success) {
+      redirect(action: "showProjectArtifacts", params: [id: params.projectName, versionNumber: params.versionNumber])
+    } else {
+      render(view: "editDomain", model: [errors       : resp.errors, projectName: params.projectName,
+                                         versionNumber: params.versionNumber,
+                                         domain       : [name       : params.name,
+                                                         description: params.description]])
     }
   }
 
@@ -123,11 +150,11 @@ class HomeController {
     String listDomains = AppConstant.API_URL + "rest/list/domain"
     String listScenarios = AppConstant.API_URL + "rest/list/scenario"
     String listScenarioChains = AppConstant.API_URL + "rest/list/chain"
-    Map requestMap = [organizationId: AppConstant.ORG_ID, projectName: params.name, versionNumber: params.versionNumber]
+    Map requestMap = [organizationId: AppConstant.ORG_ID, projectName: params.id, versionNumber: params.versionNumber]
     Map domains = makeRequestAndRetrieveResponse(listDomains, requestMap)
     Map scenarios = makeRequestAndRetrieveResponse(listScenarios, requestMap)
     Map chains = makeRequestAndRetrieveResponse(listScenarioChains, requestMap)
-    [domains: domains, scenarios: scenarios, chains: chains, projectName: params.name, versionNumber: params.versionNumber]
+    [domains: domains, scenarios: scenarios, chains: chains, projectName: params.id, versionNumber: params.versionNumber]
   }
 
   private Map makeRequestAndRetrieveResponse(String url, Map requestMap, Boolean setHeader = true) {
