@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="text-center m-b-md">
-        <h3>Edit Project</h3>
+        <h3>Manage Project</h3>
       </div>
 
       <div class="hpanel">
@@ -23,10 +23,11 @@
         <div class="panel-body">
           <g:form controller="home" action="saveProject" name="loginForm">
             <div class="form-group">
-              <label class="control-label" for="username">Project Name</label>
+              <label class="control-label" for="name">Project Name</label>
               <input type="text" required="" value="${project?.name}"
                      name="name" id="name" class="form-control">
             </div>
+            <g:hiddenField name="oldName" value="${project ? project.name : ''}"/>
 
             <div class="form-group">
               <label class="control-label" for="description">Description</label>
@@ -34,7 +35,7 @@
                   name="description" id="description" class="form-control">${project?.description}</textarea>
             </div>
 
-            <button class="btn btn-success">Update Project</button>
+            <button class="btn btn-success">Save Project</button>
           </g:form>
         </div>
       </div>

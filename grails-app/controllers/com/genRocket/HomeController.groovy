@@ -38,6 +38,10 @@ class HomeController {
     [projects: resp?.projects]
   }
 
+  def createProject() {
+    render(view: "editProject")
+  }
+
   def lockProject(String id) {
     String listProject = AppConstant.API_URL + "rest/lock/project"
     Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
@@ -62,9 +66,21 @@ class HomeController {
     resp
   }
 
+  def deleteProject(String id) {
+    String deleteProject = AppConstant.API_URL + "rest/delete/project"
+    Map resp = makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
+                                                              projectName   : id])
+    if (!resp.success) {
+      flash.error = resp.errors
+    }
+    redirect(action: "dashboard")
+  }
+
   def saveProject() {
+    String oldName = params.oldName
     String listProject = AppConstant.API_URL + "rest/create/project"
-    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, name: params.name, description: params.description])
+    Map resp = makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, oldName: oldName,
+                                                            name          : params.name, description: params.description])
     if (resp.success) {
       redirect(action: "dashboard")
     } else {
