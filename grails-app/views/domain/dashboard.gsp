@@ -24,8 +24,9 @@
 
   <ul class="nav" id="side-menu" style="border-right: 1px solid #e4e5e7; border-left: 1px solid #e4e5e7">
     <g:each in="${domain?.attributes}" var="attribute">
-      <li><g:link controller="domain" action="createAttribute"
-                  id="${domainId}">${attribute?.name}</g:link>
+      <li><a href="#" style="width: 70%;display: inline-block">${attribute?.name}</a>
+        <g:link controller="domain" action="deleteAttribute" params="[id: domain?.externalId, name: attribute?.name]"
+                style="display: inline-block"><i class="fa fa-trash"></i></g:link>
       </li>
     </g:each>
   </ul>
@@ -95,8 +96,7 @@
   $(document).ready(function () {
     $("#dataPreviewContainer").empty();
     $("#previewDataLoading").show();
-    $("#dataPreviewContainer").load("${createLink(controller: 'domain', action: 'previewData')}/" + $("#domainId").val(), {
-    }, function () {
+    $("#dataPreviewContainer").load("${createLink(controller: 'domain', action: 'previewData')}/" + $("#domainId").val(), {}, function () {
       $("#previewDataLoading").hide();
     });
   });

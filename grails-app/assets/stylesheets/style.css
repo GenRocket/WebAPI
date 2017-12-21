@@ -2265,6 +2265,10 @@ body.fullscreen-panel-mode {
   right: 18px;
   top: 12px;
 }
+
+.genColor {
+  color: #005580 !important;
+}
 /* Menu */
 #side-menu {
   background: #f7f9fa;

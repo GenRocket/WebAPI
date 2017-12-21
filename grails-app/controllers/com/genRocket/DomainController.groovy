@@ -35,11 +35,11 @@ class DomainController {
   def deleteAttribute(String id) {
     String deleteProject = AppConstant.API_URL + "rest/delete/attribute"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
-                                                                      domainId      : params.domainId])
+                                                                      domainId      : params.id, name: params.name])
     if (!resp.success) {
       flash.error = resp.errors
     }
-    redirect(action: "showProjectArtifacts", params: [id: id, versionNumber: params.versionNumber])
+    redirect(action: "dashboard", params: [id: id])
   }
 
   def previewData() {

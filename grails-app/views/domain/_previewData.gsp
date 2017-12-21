@@ -1,20 +1,27 @@
-<div class="table-responsive previewDomainData">
-  <table id="dataPreviewTable" class="table table-bordered table-striped table-condensed">
-    <thead>
-    <tr>
-      <g:each in="${attributes}" var="attribute">
-        <th>${attribute}</th>
-      </g:each>
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${attributeData}" var="data">
+<g:if test="${success == false}">
+  <div class="alert alert-danger">
+    ${errors?.message}
+  </div>
+</g:if>
+<g:else>
+  <div class="table-responsive previewDomainData">
+    <table id="dataPreviewTable" class="table table-bordered table-striped table-condensed">
+      <thead>
       <tr>
-        <g:each in="${data}" var="cell">
-          <td>${cell}</td>
+        <g:each in="${attributes}" var="attribute">
+          <th>${attribute}</th>
         </g:each>
       </tr>
-    </g:each>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+      <g:each in="${attributeData}" var="data">
+        <tr>
+          <g:each in="${data}" var="cell">
+            <td>${cell}</td>
+          </g:each>
+        </tr>
+      </g:each>
+      </tbody>
+    </table>
+  </div>
+</g:else>
