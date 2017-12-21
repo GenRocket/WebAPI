@@ -47,10 +47,10 @@
                         id="${project.name}"><i class="pe-7s-pen"></i></g:link>
                 <g:if test="${project.locked}">
                   <g:link controller="home" action="unLockProject"
-                          id="${project.name}"><i class="pe-7s-lock"></i></g:link>
+                          id="${project.name}"><i class="fa fa-unlock"></i></g:link>
                 </g:if><g:else>
                 <g:link controller="home" action="lockProject"
-                        id="${project.name}"><i class="pe-7s-unlock"></i></g:link>
+                        id="${project.name}"><i class="fa fa-lock"></i></g:link>
               </g:else>
                 <g:link controller="home" action="deleteProject" title="Delete project"
                         id="${project.name}"><i class="pe-7s-trash"></i></g:link>

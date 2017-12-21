@@ -17,6 +17,12 @@
       ${flash.message}
     </div>
   </g:if>
+  ${flash.error}
+  <g:if test="${flash.error}">
+    <div class="alert alert-danger">
+      ${flash.error}
+    </div>
+  </g:if>
   <div class="col-lg-4">
     <div class="hpanel">
       <div class="panel-heading">
