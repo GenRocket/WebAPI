@@ -42,7 +42,8 @@
             <tbody>
             <g:each in="${domains.domains}" var="domain">
               <tr>
-                <td><g:link controller="domain" action="dashboard" id="${domain.externalId}">${domain.name}</g:link></td>
+                <td><g:link controller="domain" action="dashboard"
+                            id="${domain.externalId}">${domain.name}</g:link></td>
                 <td>${domain.description}
                 </td>
                 <td class="text-center"><g:link controller="home" action="editDomain"
@@ -79,7 +80,7 @@
             <thead>
             <tr>
               <th>Name</th>
-              <th>&nbsp;</th>
+              <th class="text-center">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -87,7 +88,14 @@
               <tr>
                 <td>${scenario.name}
                 </td>
-                <td></td>
+                <td class="text-center">
+                  <g:link controller="scenario" action="download"
+                          params="[id: projectName, versionNumber: versionNumber, scenarioId: scenario?.externalId]"><i
+                      class="pe-7s-download"></i></g:link>
+                  <g:link controller="scenario" action="delete"
+                          params="[id: projectName, versionNumber: versionNumber, scenarioId: scenario?.externalId]"><i
+                      class="pe-7s-trash"></i></g:link>
+                </td>
               </tr>
             </g:each>
             </tbody>

@@ -4,6 +4,8 @@ import grails.util.Holders
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
+import org.apache.commons.io.FileUtils
+import org.apache.http.Header
 
 class AppUtil {
 
@@ -39,6 +41,42 @@ class AppUtil {
       return jsonResp
     } catch (Exception ex) {
       return [success: false, errorMessage: ex.message]
+    }
+  }
+
+  static File makeRequestAndDownloadResponse(String url, Map requestMap, Boolean setHeader = true) {
+    try {
+      File file = null
+      HTTPBuilder hTTPBuilder = new HTTPBuilder(url)
+      hTTPBuilder.ignoreSSLIssues()
+      Map jsonResp = [:]
+
+      hTTPBuilder.request(Method.POST, ContentType.BINARY) {
+        body = requestMap
+        requestContentType = ContentType.JSON
+
+        if (selectedToken() && setHeader) {
+          headers = ["X-Auth-Token": selectedToken()]
+        }
+
+        response.success = { resp, inputStream ->
+          String fileName = null
+          List<Header> responseHeader = resp.getHeaders("Content-Disposition");
+          fileName = responseHeader.first().getValue()
+          fileName = fileName ? fileName.split("filename=")?.last() : fileName
+          file = new File(fileName)
+          FileUtils.copyInputStreamToFile(inputStream, file)
+        }
+
+        response.failure = { resp ->
+          println "Request failed with status ${resp.status}"
+        }
+      }
+
+      return file
+    } catch (Exception ex) {
+      println ex.message
+      return null
     }
   }
 
