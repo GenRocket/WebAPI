@@ -14,10 +14,10 @@ class HomeController {
   }
 
   def login(String username, String password) {
-    String loginURL = AppConstant.API_URL + "api/login"
+    String loginURL = AppConstant.API_URL + "rest/login"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(loginURL, [username: username, password: password], false)
 
-    String loginToken = resp.access_token
+    String loginToken = resp.accessToken
     if (loginToken) {
       AppUtil.saveToken(loginToken)
     } else {
