@@ -40,6 +40,7 @@ class AppUtil {
 
       return jsonResp
     } catch (Exception ex) {
+      ex.printStackTrace()
       return [success: false, errorMessage: ex.message]
     }
   }
