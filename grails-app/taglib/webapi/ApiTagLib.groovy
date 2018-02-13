@@ -9,7 +9,7 @@ class ApiTagLib {
 
   def globalVariables = { attr, body ->
     String domainId = attr.domainId
-    String globalVariableList = AppConstant.API_URL + "rest/list/globalVariable"
+    String globalVariableList = AppConstant.API_URL + "rest/globalVariable/list"
 
     Map response = AppUtil.makeRequestAndRetrieveResponse(globalVariableList, [domainId: domainId])
     out << g.render(template: "/domain/globalVariables", model: response)
@@ -17,7 +17,7 @@ class ApiTagLib {
 
   def domainReceivers = { attr, body ->
     String domainId = attr.domainId
-    String domainReceiverList = AppConstant.API_URL + "rest/list/domainReceiver"
+    String domainReceiverList = AppConstant.API_URL + "rest/domainReceiver/list"
 
     Map response = AppUtil.makeRequestAndRetrieveResponse(domainReceiverList, [domainId: domainId])
     out << g.render(template: "/domain/domainReceivers", model: response)

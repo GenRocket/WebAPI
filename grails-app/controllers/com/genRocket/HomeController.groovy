@@ -29,7 +29,7 @@ class HomeController {
   }
 
   def dashboard() {
-    String listProject = AppConstant.API_URL + "rest/list/project"
+    String listProject = AppConstant.API_URL + "rest/project/list"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID])
     [projects: resp?.projects]
   }
@@ -43,7 +43,7 @@ class HomeController {
   }
 
   def editProjectVersion(String id) {
-    String listProject = AppConstant.API_URL + "rest/show/projectVersion"
+    String listProject = AppConstant.API_URL + "rest/projectVersion/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id,
                                                                     versionNumber : params.versionNumber])
     resp + [projectName: id]
@@ -51,7 +51,7 @@ class HomeController {
 
   def saveProjectVersion() {
     String oldVersionNumber = params.oldVersionNumber
-    String listProject = AppConstant.API_URL + "rest/create/projectVersion"
+    String listProject = AppConstant.API_URL + "rest/projectVersion/create"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId  : AppConstant.ORG_ID, projectName: params.projectName,
                                                                     oldVersionNumber: oldVersionNumber,
                                                                     versionNumber   : params.versionNumber, description: params.description])
@@ -69,14 +69,14 @@ class HomeController {
   }
 
   def editDomain(String id, String versionNumber, String externalId) {
-    String listProject = AppConstant.API_URL + "rest/show/domain"
+    String listProject = AppConstant.API_URL + "rest/domain/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id, versionNumber: versionNumber,
                                                                     domainId      : externalId])
     resp + [projectName: id, versionNumber: versionNumber]
   }
 
   def saveDomain() {
-    String listProject = AppConstant.API_URL + "rest/create/domain"
+    String listProject = AppConstant.API_URL + "rest/domain/create"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: params.projectName,
                                                                     versionNumber : params.versionNumber, name: params.name, externalId: params.externalId,
                                                                     description   : params.description])
@@ -91,7 +91,7 @@ class HomeController {
   }
 
   def deleteDomain(String id) {
-    String deleteProject = AppConstant.API_URL + "rest/delete/domain"
+    String deleteProject = AppConstant.API_URL + "rest/domain/delete"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
                                                                       domainId      : params.domainId])
     if (!resp.success) {
@@ -101,7 +101,7 @@ class HomeController {
   }
 
   def lockProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/lock/project"
+    String listProject = AppConstant.API_URL + "rest/project/lock"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
     if (resp.success) {
       flash.message = "Locked the project ${id}"
@@ -110,7 +110,7 @@ class HomeController {
   }
 
   def unLockProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/unLock/project"
+    String listProject = AppConstant.API_URL + "rest/project/unLock"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
     if (resp.success) {
       flash.message = "UnLocked the project ${id}"
@@ -119,13 +119,13 @@ class HomeController {
   }
 
   def editProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/show/project"
+    String listProject = AppConstant.API_URL + "rest/project/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
     resp
   }
 
   def deleteProject(String id) {
-    String deleteProject = AppConstant.API_URL + "rest/delete/project"
+    String deleteProject = AppConstant.API_URL + "rest/project/delete"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
                                                                       projectName   : id])
     if (!resp.success) {
@@ -136,7 +136,7 @@ class HomeController {
 
   def saveProject() {
     String oldName = params.oldName
-    String listProject = AppConstant.API_URL + "rest/create/project"
+    String listProject = AppConstant.API_URL + "rest/project/create"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, oldName: oldName,
                                                                     name          : params.name, description: params.description])
     if (resp.success) {
@@ -147,15 +147,15 @@ class HomeController {
   }
 
   def listProjectVersions(String id) {
-    String listProject = AppConstant.API_URL + "rest/show/project"
+    String listProject = AppConstant.API_URL + "rest/project/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
     resp
   }
 
   def showProjectArtifacts() {
-    String listDomains = AppConstant.API_URL + "rest/list/domain"
-    String listScenarios = AppConstant.API_URL + "rest/list/scenario"
-    String listScenarioChains = AppConstant.API_URL + "rest/list/chain"
+    String listDomains = AppConstant.API_URL + "rest/domain/list"
+    String listScenarios = AppConstant.API_URL + "rest/scenario/list"
+    String listScenarioChains = AppConstant.API_URL + "rest/chain/list"
     Map requestMap = [organizationId: AppConstant.ORG_ID, projectName: params.id, versionNumber: params.versionNumber]
     Map domains = AppUtil.makeRequestAndRetrieveResponse(listDomains, requestMap)
     Map scenarios = AppUtil.makeRequestAndRetrieveResponse(listScenarios, requestMap)

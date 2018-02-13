@@ -3,7 +3,7 @@ package com.genRocket
 class ScenarioController {
 
   def delete(String id) {
-    String deleteScenario = AppConstant.API_URL + "rest/delete/scenario"
+    String deleteScenario = AppConstant.API_URL + "rest/scenario/delete"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteScenario, [scenarioId: params.scenarioId])
     if (!resp.success) {
       flash.error = resp.errors
@@ -12,10 +12,10 @@ class ScenarioController {
   }
 
   def download(String id) {
-    String validateScenario = AppConstant.API_URL + "rest/validate/scenario"
+    String validateScenario = AppConstant.API_URL + "rest/scenario/validate"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(validateScenario, [scenarioId: params.scenarioId])
     if (resp.success) {
-      String downloadScenario = AppConstant.API_URL + "rest/download/scenario"
+      String downloadScenario = AppConstant.API_URL + "rest/scenario/download"
       File file = AppUtil.makeRequestAndDownloadResponse(downloadScenario, [scenarioId: params.scenarioId])
 
       if (file) {
@@ -35,7 +35,7 @@ class ScenarioController {
   }
 
   def dashboard(String id) {
-    String domainDashboard = AppConstant.API_URL + "rest/show/scenario"
+    String domainDashboard = AppConstant.API_URL + "rest/scenario/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(domainDashboard, [organizationId: AppConstant.ORG_ID,
                                                                         scenarioId    : id])
 
