@@ -29,8 +29,8 @@ class HomeController {
   }
 
   def dashboard() {
-    String listProject = AppConstant.API_URL + "rest/project/list"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID])
+    String operation = AppConstant.API_URL + "rest/project/list"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID])
     [projects: resp?.projects]
   }
 
@@ -43,16 +43,16 @@ class HomeController {
   }
 
   def editProjectVersion(String id) {
-    String listProject = AppConstant.API_URL + "rest/projectVersion/show"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id,
+    String operation = AppConstant.API_URL + "rest/projectVersion/show"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id,
                                                                     versionNumber : params.versionNumber])
     resp + [projectName: id]
   }
 
   def saveProjectVersion() {
     String oldVersionNumber = params.oldVersionNumber
-    String listProject = AppConstant.API_URL + "rest/projectVersion/create"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId  : AppConstant.ORG_ID, projectName: params.projectName,
+    String operation = AppConstant.API_URL + "rest/projectVersion/create"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId  : AppConstant.ORG_ID, projectName: params.projectName,
                                                                     oldVersionNumber: oldVersionNumber,
                                                                     versionNumber   : params.versionNumber, description: params.description])
     if (resp.success) {
@@ -69,15 +69,15 @@ class HomeController {
   }
 
   def editDomain(String id, String versionNumber, String externalId) {
-    String listProject = AppConstant.API_URL + "rest/domain/show"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id, versionNumber: versionNumber,
+    String operation = AppConstant.API_URL + "rest/domain/show"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id, versionNumber: versionNumber,
                                                                     domainId      : externalId])
     resp + [projectName: id, versionNumber: versionNumber]
   }
 
   def saveDomain() {
-    String listProject = AppConstant.API_URL + "rest/domain/create"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: params.projectName,
+    String operation = AppConstant.API_URL + "rest/domain/create"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: params.projectName,
                                                                     versionNumber : params.versionNumber, name: params.name, externalId: params.externalId,
                                                                     description   : params.description])
     if (resp.success) {
@@ -101,8 +101,8 @@ class HomeController {
   }
 
   def lockProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/project/lock"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
+    String operation = AppConstant.API_URL + "rest/project/lock"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id])
     if (resp.success) {
       flash.message = "Locked the project ${id}"
       redirect(action: "dashboard")
@@ -110,8 +110,8 @@ class HomeController {
   }
 
   def unLockProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/project/unLock"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
+    String operation = AppConstant.API_URL + "rest/project/unLock"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id])
     if (resp.success) {
       flash.message = "UnLocked the project ${id}"
       redirect(action: "dashboard")
@@ -119,8 +119,8 @@ class HomeController {
   }
 
   def editProject(String id) {
-    String listProject = AppConstant.API_URL + "rest/project/show"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
+    String operation = AppConstant.API_URL + "rest/project/show"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id])
     resp
   }
 
@@ -136,8 +136,8 @@ class HomeController {
 
   def saveProject() {
     String oldName = params.oldName
-    String listProject = AppConstant.API_URL + "rest/project/create"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, oldName: oldName,
+    String operation = AppConstant.API_URL + "rest/project/create"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, oldName: oldName,
                                                                     name          : params.name, description: params.description])
     if (resp.success) {
       redirect(action: "dashboard")
@@ -146,9 +146,9 @@ class HomeController {
     }
   }
 
-  def listProjectVersions(String id) {
-    String listProject = AppConstant.API_URL + "rest/project/show"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(listProject, [organizationId: AppConstant.ORG_ID, projectName: id])
+  def operationVersions(String id) {
+    String operation = AppConstant.API_URL + "rest/project/show"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id])
     resp
   }
 
