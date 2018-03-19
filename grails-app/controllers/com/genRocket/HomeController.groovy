@@ -14,8 +14,8 @@ class HomeController {
   }
 
   def login(String username, String password) {
-    String loginURL = AppConstant.API_URL + "rest/login"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(loginURL, [username: username, password: password], false)
+    String operation = AppConstant.API_URL + "rest/login"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [username: username, password: password], false)
 
     String loginToken = resp.accessToken
     if (loginToken) {
@@ -91,8 +91,8 @@ class HomeController {
   }
 
   def deleteDomain(String id) {
-    String deleteProject = AppConstant.API_URL + "rest/domain/delete"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
+    String operation = AppConstant.API_URL + "rest/domain/delete"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID,
                                                                       domainId      : params.domainId])
     if (!resp.success) {
       flash.error = resp.errors
@@ -125,8 +125,8 @@ class HomeController {
   }
 
   def deleteProject(String id) {
-    String deleteProject = AppConstant.API_URL + "rest/project/delete"
-    Map resp = AppUtil.makeRequestAndRetrieveResponse(deleteProject, [organizationId: AppConstant.ORG_ID,
+    String operation = AppConstant.API_URL + "rest/project/delete"
+    Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID,
                                                                       projectName   : id])
     if (!resp.success) {
       flash.error = resp.errors
@@ -146,20 +146,20 @@ class HomeController {
     }
   }
 
-  def operationVersions(String id) {
+  def listProjectVersions(String id) {
     String operation = AppConstant.API_URL + "rest/project/show"
     Map resp = AppUtil.makeRequestAndRetrieveResponse(operation, [organizationId: AppConstant.ORG_ID, projectName: id])
     resp
   }
 
   def showProjectArtifacts() {
-    String listDomains = AppConstant.API_URL + "rest/domain/list"
-    String listScenarios = AppConstant.API_URL + "rest/scenario/list"
-    String listScenarioChains = AppConstant.API_URL + "rest/chain/list"
+    String listDomainOpr = AppConstant.API_URL + "rest/domain/list"
+    String listScenarioOpr = AppConstant.API_URL + "rest/scenario/list"
+    String listScenarioChainOpr = AppConstant.API_URL + "rest/chain/list"
     Map requestMap = [organizationId: AppConstant.ORG_ID, projectName: params.id, versionNumber: params.versionNumber]
-    Map domains = AppUtil.makeRequestAndRetrieveResponse(listDomains, requestMap)
-    Map scenarios = AppUtil.makeRequestAndRetrieveResponse(listScenarios, requestMap)
-    Map chains = AppUtil.makeRequestAndRetrieveResponse(listScenarioChains, requestMap)
+    Map domains = AppUtil.makeRequestAndRetrieveResponse(listDomainOpr, requestMap)
+    Map scenarios = AppUtil.makeRequestAndRetrieveResponse(listScenarioOpr, requestMap)
+    Map chains = AppUtil.makeRequestAndRetrieveResponse(listScenarioChainOpr, requestMap)
     [domains: domains, scenarios: scenarios, chains: chains, projectName: params.id, versionNumber: params.versionNumber]
   }
 
